@@ -130,6 +130,9 @@ internal class Share(
             } else {
                 Intent.createChooser(shareIntent, title)
             }
+            
+        //ANDROID NEW TASK
+        chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
         // Grant permissions to all apps that can handle the files shared
         if (fileUris != null) {
