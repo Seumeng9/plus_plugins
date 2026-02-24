@@ -456,9 +456,14 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
         }
       };
 
-  [controller presentViewController:activityViewController
-                           animated:YES
-                         completion:nil];
+
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [controller presentViewController:activityViewController 
+                             animated:YES 
+                           completion:nil];
+  });
+
+
 }
 
 + (void)shareUri:(NSString *)uri
