@@ -184,8 +184,11 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
   }
 
   // Return an NSURL for the real share to conserve the file name
+  // NSURL *url = [NSURL fileURLWithPath:_path];
+  // return url;
+
   NSURL *url = [NSURL fileURLWithPath:_path];
-  return url;
+  return [[NSItemProvider alloc] initWithContentsOfURL:url];
 }
 
 - (NSString *)activityViewController:
