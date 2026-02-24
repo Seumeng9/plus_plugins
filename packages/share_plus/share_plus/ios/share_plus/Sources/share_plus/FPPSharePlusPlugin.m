@@ -247,13 +247,25 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     }
 
     // https://stackoverflow.com/questions/60563773/ios-13-share-sheet-changing-subtitle-item-description
-    metadata.originalURL = [NSURL fileURLWithPath:description];
+
+    //Modify
+    // metadata.originalURL = [NSURL fileURLWithPath:description]; 
+    metadata.originalURL = [NSURL fileURLWithPath:_path];
+    
+    //if (_mimeType && [_mimeType hasPrefix:@"image/"]) {
+    //  UIImage *image = [UIImage imageWithContentsOfFile:_path];
+    //  metadata.imageProvider = [[NSItemProvider alloc]
+    //      initWithObject:[self imageWithImage:image
+    //                             scaledToSize:CGSizeMake(120, 120)]];
+    //}
+
     if (_mimeType && [_mimeType hasPrefix:@"image/"]) {
-      UIImage *image = [UIImage imageWithContentsOfFile:_path];
-      metadata.imageProvider = [[NSItemProvider alloc]
-          initWithObject:[self imageWithImage:image
-                                 scaledToSize:CGSizeMake(120, 120)]];
+        // We use the file URL directly. This is more stable for Telegram 
+        // because it allows the OS to handle the thumbnail generation.
+        metadata.imageProvider = [[NSItemProvider alloc] initWithContentsOfURL:[NSURL fileURLWithPath:_path]];
     }
+
+
   }
 
   return metadata;
